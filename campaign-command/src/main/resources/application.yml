@@ -1,0 +1,79 @@
+security:
+  oauth2:
+    resource:
+      jwt:  
+        key-value: |    
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGp/Q5lh0P8nPL21oMMrt2RrkT9AW5jgYwLfSUnJVc9G6uR3cXRRDCjHqWU5WYwivcF180A6CWp/ireQFFBNowgc5XaA0kPpzEtgsA5YsNX7iSnUibB004iBTfU9hZ2Rbsc8cWqynT0RyN4TP1RYVSeVKvMQk4GT1r7JCEC+TNu1ELmbNwMQyzKjsfBXyIOCFU/E94ktvsTZUHF4Oq44DBylCDsS1k7/sfZC2G5EU7Oz0mhG8+Uz6MSEQHtoIi6mc8u64Rwi3Z3tscuWG2ShtsUFuNSAFNkY7LkLn+/hxLCu2bNISMaESa8dG22CIMuIeRLVcAmEWEWH5EEforTg+QIDAQAB
+          -----END PUBLIC KEY-----
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+spring:
+  rabbitmq:
+    hostname: localhost
+    port: 5672
+    username: test
+    password: password
+
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    discoveryClientEnabled: false
+    baseUrl: http://127.0.0.1:9411/
+    sender:
+      type: web
+# ===============================
+# = DATA SOURCE
+# ===============================
+  datasource:
+    url: jdbc:mysql://${DATABASE_SERVER_HOST}:3306/${DATABASE}?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: ${DATABASE_SERVER_USERNAME}
+    password: ${DATABASE_SERVER_PASSWORD}
+
+
+# Keep the connection alive if idle for a long time (needed in production)
+    testWhileIdle: true
+    validationQuery: SELECT 1
+
+# ===============================
+# = JPA / HIBERNATE
+# ===============================
+
+# Use spring.jpa.properties.* for Hibernate native properties (the prefix is
+# stripped before adding them to the entity manager).
+
+# Show or not log for each sql query
+  jpa:
+    show-sql: false
+
+# Hibernate ddl auto (create, create-drop, update): with "update" the database
+# schema will be automatically updated accordingly to java entities found in
+# the project
+    hibernate:
+      ddl-auto: update
+
+# Naming strategy
+# spring.jpa.hibernate.naming-strategy = org.hibernate.cfg.ImprovedNamingStrategy
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      
+
+# Allows Hibernate to generate SQL optimized for a particular DBMS
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+
+
+axon:
+  amqp:
+    exchange: CampaignEvents
+  

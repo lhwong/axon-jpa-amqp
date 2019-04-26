@@ -1,0 +1,4 @@
+set DATABASE=seven-eleven
+set DATABASE_SERVER_HOST=localhost
+set DATABASE_SERVER_USERNAME=root
+set DATABASE_SERVER_PASSWORD=password
